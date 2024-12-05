@@ -1,5 +1,5 @@
 # ahk_dde
-AHK v2 library script to enable DDE communication with other applications
+AHK v2 library script to enable DDE communication with other applications.
 
 Inspired by dde.ahk provided by Joy2DWorld via AHK forums. Uses classes to allow multiple connections at once.
 
@@ -10,8 +10,8 @@ Include dde.ahk in your AHK script and create an instance of the `DDE_Conversati
 * Terminate the connection via `Disconnect`
 
 ## Missing features
-WM_DDE_ADVISE
-WM_DDE_UNADVISE
-WM_DDE_DATA
-WM_DDE_REQUEST
+WM_DDE_ADVISE, 
+WM_DDE_UNADVISE, 
+WM_DDE_DATA, 
+WM_DDE_REQUEST, 
 WM_DDE_POKE
