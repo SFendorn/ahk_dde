@@ -46,11 +46,11 @@ class DDE_Conversation {
     DllCall("DeleteAtom", "Ushort", nAtom_Server)
     DllCall("DeleteAtom", "Ushort", nAtom_Topic)
 
-     if (!this.ServerHwnd)
-     {
-        ; common error: if target app is not running or declines the DDE connection
-        throw Error("DDE Initialization failed", A_ThisFunc, "No response from server '" this.Server ":" this.Topic "'")
-     }
+    if (!this.ServerHwnd)
+    {
+      ; common error: if target app is not running or declines the DDE connection
+      throw Error("DDE Initialization failed", A_ThisFunc, "No response from server '" this.Server ":" this.Topic "'")
+    }
 
     if (!this.ClientHwnd)
     {
