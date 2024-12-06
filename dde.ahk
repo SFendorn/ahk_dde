@@ -42,7 +42,7 @@ class DDE_Conversation {
     nAtom_Server := DllCall("GlobalAddAtom", "str", this.Server, "Ushort")
     nAtom_Topic := DllCall("GlobalAddAtom", "str", this.Topic, "Ushort")
     DllCall("SendMessage", "UInt", 0xFFFF, "UInt", this.WM_DDE_INITIATE, "UInt", this.ClientHwnd, "UInt", nAtom_Server | nAtom_Topic << 16)
-    this.ServerHwnd := this.WaitForAck(this.ClientHwnd, timeout)
+    this.ServerHwnd := this.WaitForAck(timeout)
     DllCall("DeleteAtom", "Ushort", nAtom_Server)
     DllCall("DeleteAtom", "Ushort", nAtom_Topic)
 
@@ -77,7 +77,7 @@ class DDE_Conversation {
 
     DllCall("PostMessage", "UInt", this.ServerHwnd, "UInt", this.WM_DDE_EXECUTE , "UInt", this.ClientHwnd, "UInt", hCmd)
 
-    return this.WaitForAck(this.ClientHwnd, timeout)
+    return this.WaitForAck(timeout)
   }
 
   Disconnect()
@@ -87,19 +87,15 @@ class DDE_Conversation {
     this.connected := false
   }
 
-  WaitForAck(hwnd, timeout := 60000)
+  WaitForAck(timeout := 60000)
   {
     end_time := A_TickCount + timeout
-    loop
+    while (A_TickCount < end_time)
     {
-      if (hwnd = this.DDE_Ack_Hwnd)
+      if (this.ClientHwnd = this.DDE_Ack_Hwnd)
       {
         this.DDE_Ack_Hwnd := 0
         return this.DDE_Ack_wParam
-      }
-      if (A_TickCount > end_time)
-      {
-        break
       }
       sleep 500
     }
