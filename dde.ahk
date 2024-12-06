@@ -70,10 +70,10 @@ class DDE_Conversation {
     ; length +1 for terminating zero
     ; length times two because of Unicode (UTF-16)
     len := (StrLen(command)+1)*2
-    hCmd := DllCall("GlobalAlloc", "Uint", 0x0002, "Uint", len)
-    pCmd := DllCall("GlobalLock" , "Uint", hCmd)
-    DllCall("lstrcpyW", "Uint", pCmd, "str", command)
-    DllCall("GlobalUnlock", "Uint", hCmd)
+    hCmd := DllCall("GlobalAlloc", "UInt", 0x0002, "UInt", len)
+    pCmd := DllCall("GlobalLock" , "UInt", hCmd)
+    DllCall("lstrcpyW", "UInt", pCmd, "str", command)
+    DllCall("GlobalUnlock", "UInt", hCmd)
 
     DllCall("PostMessage", "UInt", this.ServerHwnd, "UInt", this.WM_DDE_EXECUTE , "UInt", this.ClientHwnd, "UInt", hCmd)
 
@@ -103,7 +103,7 @@ class DDE_Conversation {
   }
 }
 
-OnDDEAck(&obj, wParam, LParam, MsgID, hWnd)
+OnDDEAck(&obj, wParam, lParam, MsgID, hWnd)
 {
   Critical
   obj.DDE_Ack_wParam := wParam
